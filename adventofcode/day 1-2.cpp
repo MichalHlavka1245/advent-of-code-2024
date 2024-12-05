@@ -11,21 +11,17 @@ int main()
         cin>>zoznam[c]>>zoznam1[c];
 
     }
-    for (int i = 0; i < 1000; i++)
-    {
+    for (int i = 0; i < 1000; i++){
         int aktualne_cislo=zoznam[i];
 
 
 
-        for (int j = 0; j < 1000; j++)
-        {
+        for (int j = 0; j < 1000; j++){
             int pocet=0;
-            if(aktualne_cislo==zoznam1[j])
-            {
+            if(aktualne_cislo==zoznam1[j]){
                 pocet++;
                 if(pocet==0) spolu+=0;
-                else
-                {
+                else{
                     spolu+=aktualne_cislo*pocet;
                     cout<<spolu<<endl;
                 }
