@@ -24,8 +24,7 @@ int main()
                 for (int drow = -1; drow <= 1; drow++){
                     for (int dcol = -1; dcol <= 1; dcol++)
                     {
-                        if(drow == 0 && dcol == 0)
-                        {
+                        if(drow == 0 && dcol == 0){
                             continue;
                         }
                         bool all_ok = true;
@@ -33,10 +32,9 @@ int main()
                             int r2=row+drow* i;
                             int c2 = col+dcol* i;
                             if(inside(r2,c2) and a[r2][c2] == vzor[i]){
-
+                                continue;
                             }
-                            else
-                            {
+                            else{
                                 all_ok = false;
                                 break;
                             }
