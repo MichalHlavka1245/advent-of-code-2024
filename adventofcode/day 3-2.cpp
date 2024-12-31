@@ -21,7 +21,7 @@ int main(){
     unsigned long long result = 0;
     bool isOn = true;
 
-    vector<size_t> state;
+    vector<size_t> state; //pozicia  kde sa nachadza do a don´t
     sregex_iterator iterSwitch(total.begin(), total.end(), vzorSwitch), endSwitch;
 
     while(iterSwitch != endSwitch){
