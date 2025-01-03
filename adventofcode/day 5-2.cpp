@@ -16,7 +16,7 @@ int main() {
     while(getline(file, line)) {
         if (line.empty()) break;
         const auto idx = line.find('|');
-        pravidla[stoi(line.substr(0, idx))].push_back(stoi(line.substr(idx + 1, line.size() - idx - 1)));
+        pravidla[stoi(line.substr(0, idx))].push_back(stoi(line.substr(idx + 1, line.size())));
     }
     while(getline(file, line)) {
         size_t current = 0;
