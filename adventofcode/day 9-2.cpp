@@ -1,62 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-struct Block {
-    Block(const int start_idx, const int size, const int value) : start_idx(start_idx), size(size), value(value) {}
-    int start_idx;
-    int size;
-    int value;
 
-    tuple<Block, Block> split(const int size_in, const int value_in) const {
-        return {Block(start_idx, size_in, value_in), Block(start_idx + size_in, size - size_in, -1)};
-    }
+struct Block {
+    int id, size, pos;
 };
+
 int main() {
-    string input = "../input.txt";
-    ifstream file(input);
-    string line;
-    getline(file, line);
-    vector<Block> blocks;
-    int pocet_suborov = 0;
+    string s;
+    cin >> s;
+    int n = s.length();
     int pos = 0;
-    int volny = false;
-    for (const auto c : line) {
-        const int c_num = c - '0';
-        if (volny) {
-            blocks.emplace_back(pos, c_num, -1);
-            volny = false;
-        } else {
-            blocks.emplace_back(pos, c_num, pocet_suborov);
-            volny = true;
-            pocet_suborov++;
+    vector<Block> blocks;
+    for (int i = 0; i < n; i++) {
+        int digit = s[i] - '0';
+        if (i % 2 == 0) {
+            blocks.push_back(Block{i/2, digit, pos});
         }
-        pos += c_num ;
+        pos += digit;
     }
-    int index = blocks.size() - 1;
-    while (index > 0) {
-        if (blocks[index].value == -1) {
-            index--;
-            continue;
-        }
-        for (int idx_2 = 0; idx_2 < index; idx_2++) {
-            if (blocks[idx_2].value == -1 && blocks[idx_2].size >= blocks[index].size) {
-                const auto [b1, b2] = blocks[idx_2].split(blocks[index].size, blocks[index].value);
-                blocks[idx_2] = b1;
-                blocks[index].value = -1;
-                blocks.insert(begin(blocks) + idx_2 + 1, b2);
+    string out(pos, '.');
+    long long answer = 0;
+    while ((int) blocks.size() >= 2) {
+        Block me = blocks.back();
+
+        bool inserted = false;
+        for (int i = 0; i < (int) blocks.size() - 1; i++) {
+            int A = blocks[i].pos + blocks[i].size;
+            int B = blocks[i+1].pos;
+            if (B - A >= me.size) {
+                inserted = true;
+                me.pos = A;
+                blocks.pop_back();
+                blocks.insert(blocks.begin() + i + 1, me);
                 break;
             }
         }
-        index--;
-    }
-    unsigned long long answer = 0;
-    index = 0;
-    for (const auto& b : blocks) {
-        if (b.value != - 1) {
-            for (int i = 0; i < b.size; i++, index++) {
-                answer += index * b.value;
+        if (!inserted) {
+            blocks.pop_back();
+            cout << me.pos << " " << me.id << endl;
+            for (int j = 0; j < me.size; j++) {
+                answer += (me.pos+j) * me.id;
+                out[me.pos+j] = '0' + me.id;
             }
-        } else {
-            index += b.size;
+        }
+    }
+    Block me = blocks[0];
+    for (int j = 0; j < me.size; j++) {
+        out[me.pos+j] = '0' + me.id;
+        
+    }
+    //cout << out << "\n";
+
+    cout << answer << "\n";
+}           index += b.size;
         }
     }
 
