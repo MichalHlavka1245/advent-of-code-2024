@@ -20,11 +20,11 @@ int main() {
     }
     string out(pos, '.');
     long long answer = 0;
-    while ((int) blocks.size() >= 2) {
+    while ( blocks.size() >= 2) {
         Block me = blocks.back();
 
         bool inserted = false;
-        for (int i = 0; i < (int) blocks.size() - 1; i++) {
+        for (int i = 0; i <  blocks.size() - 1; i++) {
             int A = blocks[i].pos + blocks[i].size;
             int B = blocks[i+1].pos;
             if (B - A >= me.size) {
