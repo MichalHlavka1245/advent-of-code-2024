@@ -8,7 +8,7 @@ int n=s.length();
     vector<int >avail;
 
     for(int i=0;i<n;i++){
-        int digit=s[i]-'0';
+        int digit=s[i]-'0'; // Znak '0'-'9' sa konvertuje na celé číslo
         for(int rep=0;rep<digit;rep++){
                 if(i%2==0){
                 v.push_back(i/2);
