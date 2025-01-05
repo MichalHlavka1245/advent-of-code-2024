@@ -21,7 +21,7 @@ int n=s.length();
     }
     reverse(avail.begin(),avail.end());
     for(int i=(int) v.size()-1;i>=0;i--){
-        if(v[i]){
+        if(v[i]!=0){
             if(!avail.empty() && avail.back()<i){
                 v[avail.back()]=v[i];
                 v[i]=0;
