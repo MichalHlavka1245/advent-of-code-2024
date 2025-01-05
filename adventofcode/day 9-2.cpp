@@ -47,15 +47,10 @@ int main() {
     Block me = blocks[0];
     for (int j = 0; j < me.size; j++) {
         out[me.pos+j] = '0' + me.id;
-        
+
     }
     //cout << out << "\n";
 
     cout << answer << "\n";
-}           index += b.size;
-        }
-    }
-
-    cout <<"answer=" <<answer << '\n';
     return 0;
 }
