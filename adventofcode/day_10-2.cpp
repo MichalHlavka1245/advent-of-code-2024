@@ -5,7 +5,7 @@ char a[52][52];//grid
 vector<pair<int, int>> dirs{{-1,0},{1,0},{0,-1},{0,1}};
 int targets = 0;
 int height, width;
-bool vis[52][52];
+bool vis[52][52]={false};
 
 bool inside(int row, int col) {
     return 0 <= row && row < height && 0 <= col && col < width;
@@ -39,7 +39,7 @@ int main() {
         width = line.length();
         height++;
     }
-    memset(vis, 0, sizeof(vis));
+
     targets = 0;
 
     for (int row = 0; row < height; row++) {
