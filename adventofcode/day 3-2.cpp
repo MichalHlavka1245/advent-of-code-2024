@@ -52,7 +52,7 @@ int main(){
             int second = stoi(match[2]);
 
             result += first * second;
-            cout<<result<<endl;
+            //cout<<result<<endl;
         }
         ++iter;
     }
