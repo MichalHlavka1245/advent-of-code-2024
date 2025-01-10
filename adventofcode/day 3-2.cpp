@@ -21,13 +21,13 @@ int main(){
     unsigned long long result = 0;
     bool isOn = true;
 
-    vector<size_t> state; //pozicia  kde sa nachadza do a don´t
+    vector<size_t> stav; //pozicia  kde sa nachadza do a don´t
     sregex_iterator iterSwitch(total.begin(), total.end(), vzorSwitch), endSwitch;
 
     while(iterSwitch != endSwitch){
         smatch match = *iterSwitch;
-        if(match.str() == "don't()" && state.size() % 2 == 0) state.push_back(match.position());
-        else if(match.str() == "do()" && state.size() % 2 == 1) state.push_back(match.position());
+        if(match.str() == "don't()" && stav.size() % 2 == 0) stav.push_back(match.position());
+        else if(match.str() == "do()" && stav.size() % 2 == 1) stav.push_back(match.position());
         ++iterSwitch;
     }
 
@@ -38,14 +38,14 @@ int main(){
         bool isOn = true;
         size_t pos = match.position();
 
-        for(int i = 1; i < state.size(); i++){
-            if(pos>state[i-1]&&pos<state[i]){
+        for(int i = 1; i < stav.size(); i++){
+            if(pos>stav[i-1]&&pos<stav[i]){
                 (i%2==1?isOn=0:isOn=1);
                 break;
             }
         }
 
-        if(!state.empty()&&pos>state[state.size()-1]&&state.size()%2==1) isOn = false;
+        if(!stav.empty()&&pos>stav[stav.size()-1]&&stav.size()%2==1) isOn = false;
 
         if(isOn){
             int first = stoi(match[1]);
