@@ -11,7 +11,7 @@ int main() {
     vector<vector<int>> aktualizacie;
     while(getline(file, line)) {
         if (line.empty()) break;
-        const auto idx = line.find('|');
+        const int idx = line.find('|');
         pravidla[stoi(line.substr(0, idx))].push_back(stoi(line.substr(idx + 1, line.size())));
     }
     while(getline(file, line)) {
