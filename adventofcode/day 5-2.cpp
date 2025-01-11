@@ -18,7 +18,7 @@ int main() {
         int current = 0;
         int comma_idx = line.find(',');
         aktualizacie.emplace_back();
-        auto& update = aktualizacie.back();
+        auto& update = aktualizacie.back();   //referencia na posledný pridaný vektor z 2D vektora aktualizácie
         while(comma_idx != string::npos) {
             update.push_back(stoi(line.substr(current, comma_idx)));
             current = comma_idx + 1;
