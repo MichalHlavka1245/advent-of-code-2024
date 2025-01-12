@@ -5,14 +5,14 @@ char a[52][52];//grid
 vector<pair<int, int>> dirs{{-1,0},{1,0},{0,-1},{0,1}};
 int targets = 0;
 int height, width;
-bool vis[52][52]={false};
+
 
 bool inside(int row, int col) {
     return 0 <= row && row < height && 0 <= col && col < width;
 }
 
 void dfs(int row, int col) {
-    vis[row][col] = true;
+  
     if (a[row][col] == '9') {
         targets++;
     }
@@ -41,20 +41,13 @@ int main() {
     }
 
     targets = 0;
-
     for (int row = 0; row < height; row++) {
         for (int col = 0; col < width; col++) {
             if (a[row][col] == '0') {
                 dfs(row, col);
-                for (int i = 0; i < height; i++) {
-                    for (int j = 0; j < width; j++) {
-                        vis[i][j] = false;
-                    }
                 }
             }
         }
-    }
-
     cout << targets << endl;
     return 0;
 }
