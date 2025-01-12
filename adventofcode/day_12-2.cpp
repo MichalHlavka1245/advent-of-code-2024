@@ -2,17 +2,17 @@
 using namespace std;
 
 int check_corner(int row, int col, const vector<string>& mapa) {
-    int nc = 0;
-    char c = mapa[row][col];
+    int pocet_rohov = 0;    char c = mapa[row][col];
+
 
     vector<pair<int, int>> corners{{1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
     for (const auto& [dr, dc] : corners) {
         bool is_outer = mapa[row + dr][col] != c && mapa[row][col + dc] != c;
         bool is_inner = mapa[row + dr][col] == c && mapa[row][col + dc] == c && mapa[row + dr][col + dc] != c;
-        if (is_outer || is_inner) ++nc;
+        if (is_outer || is_inner) ++pocet_rohov;
     }
 
-    return nc;
+    return pocet_rohov;
 }
 
 long long calculate_cost(int row_idx, int col_idx, const vector<string>& map, vector<vector<bool>>& visited) {
@@ -20,7 +20,7 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& map, ve
     queue<pair<int, int>> q;
     q.push({row_idx, col_idx});
 
-    long long area = 0, perimeter = 0;
+    long long area = 0, obvod = 0;
     vector<pair<int, int>> dirs{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
     while (!q.empty()) {
@@ -31,17 +31,17 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& map, ve
         visited[r][c] = true;
 
         ++area;
-        perimeter += check_corner(r, c, map);
+        obvod += check_corner(r, c, map);
 
         for (const auto& [dr, dc] : dirs) {
-            int nr = r + dr, nc = c + dc;
-            if (map[nr][nc] == map[r][c] && !visited[nr][nc]) {
-                q.push({nr, nc});
+            int nr = r + dr, pocet_rohov = c + dc;
+            if (map[nr][pocet_rohov] == map[r][c] && !visited[nr][pocet_rohov]) {
+                q.push({nr, pocet_rohov});
             }
         }
     }
 
-    return area * perimeter;
+    return area * obvod;
 }
 
 int main() {
