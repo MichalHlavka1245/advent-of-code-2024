@@ -11,7 +11,7 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& mapa, v
     long long cost = 0;
     queue<Point> q;
     q.push(start);
-    long long area = 0;
+    long long area = 0; //počet rastlin v jednej oblasti
     long long obvod = 0;
 
     while (!q.empty()) {
@@ -46,7 +46,7 @@ int main() {
         mapa.push_back(line);
     }
 
-    // Pridajeme horný a dolný rámček
+    
     string border(mapa[0].size(), '#');
     mapa.insert(mapa.begin(), border);
     mapa.push_back(border);
