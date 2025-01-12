@@ -58,8 +58,7 @@ int main() {
         for (int col_idx = 0; col_idx < mapa[row_idx].size(); ++col_idx) {
             if (visited[row_idx][col_idx]) continue;
             const auto c = mapa[row_idx][col_idx];
-            if (c == '#') continue;
-            total_cost += calculate_cost(row_idx, col_idx, mapa, visited);
+            if (c != '#') total_cost += calculate_cost(row_idx, col_idx, mapa, visited);
         }
     }
 
