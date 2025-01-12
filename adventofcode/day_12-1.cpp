@@ -1,12 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 using Point = pair<int, int>;
-const array<Point, 4> motions{
-    Point(0, 1), Point(1, 0), Point(0, -1), Point(-1, 0)
-};
+vector<pair<int, int>> dirs{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
 long long calculate_cost(int row_idx, int col_idx, const vector<string>& mapa, vector<vector<bool>>& visited) {
-    const auto c = mapa[row_idx][col_idx];  // Rastliny
+    const char c = mapa[row_idx][col_idx];  // Rastliny
     if (c == '#') return 0;
     const Point start(row_idx, col_idx);
     long long cost = 0;
@@ -22,8 +21,8 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& mapa, v
         visited[p.first][p.second] = true;
         area++;
 
-        for (const auto& motion : motions) {
-            const Point next(p.first + motion.first, p.second + motion.second);
+        for (const auto& dir : dirs) {
+            const Point next(p.first + dir.first, p.second + dir.second);
             if (mapa[next.first][next.second] != c) {
                 perimeter++;
                 continue;
@@ -47,7 +46,7 @@ int main() {
         mapa.push_back(line);
     }
 
-   
+    // Pridajeme horný a dolný rámček
     string border(mapa[0].size(), '#');
     mapa.insert(mapa.begin(), border);
     mapa.push_back(border);
@@ -67,4 +66,5 @@ int main() {
     cout << total_cost << '\n';
     return 0;
 }
+
 
