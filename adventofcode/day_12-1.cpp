@@ -12,7 +12,7 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& mapa, v
     queue<Point> q;
     q.push(start);
     long long area = 0;
-    long long perimeter = 0;
+    long long obvod = 0;
 
     while (!q.empty()) {
         auto p = q.front();
@@ -24,7 +24,7 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& mapa, v
         for (const auto& dir : dirs) {
             const Point next(p.first + dir.first, p.second + dir.second);
             if (mapa[next.first][next.second] != c) {
-                perimeter++;
+                obvod++;
                 continue;
             }
             if (!visited[next.first][next.second]) {
@@ -33,7 +33,7 @@ long long calculate_cost(int row_idx, int col_idx, const vector<string>& mapa, v
         }
     }
 
-    return area * perimeter;
+    return area * obvod;
 }
 
 int main() {
