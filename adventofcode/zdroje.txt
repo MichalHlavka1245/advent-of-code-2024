@@ -1,0 +1,4 @@
+zdroje:
+Samo Hájek
+https://github.com/vss2sn/advent_of_code/tree/master/2024
+https://www.youtube.com/@Errichto
