@@ -1,54 +1,60 @@
-
 #include <bits/stdc++.h>
 using namespace std;
+
+struct Robot {
+    int p_col, p_row, v_col, v_row;
+};
+
 int main() {
-    string input = "../input.txt";
+    const int time = 100, room_col = 101, room_row = 103;
+    const regex pattern(R"(p=(-?[0-9]+),(-?[0-9]+) v=(-?[0-9]+),(-?[0-9]+))");
+    vector<Robot> robots;
 
-    ifstream file(input);
-    string line;
-    const int time = 100;
-    const int room_col = 101;
-    const int room_row = 103;
-
-    const regex vzor(R"(p=(-?[0-9]+),(-?[0-9]+) v=(-?[0-9]+),(-?[0-9]+))");
-    smatch zhoda;
-    int total_cost = 0;
-    array<int, 4> count = {{0,0,0,0}};  // pocet robotov v kvadrnatoch
-    array<array<int, room_col>, room_row> room;
-    for (auto& row : room) {
-        for (auto& prvok : row) {
-            prvok = 0;
+  
+    ifstream file("../input.txt");
+    for (string line; getline(file, line); ) {
+        smatch match;
+        if (regex_search(line, match, pattern)) {
+            robots.push_back({
+                stoi(match[1]) % room_col,
+                stoi(match[2]) % room_row,
+                stoi(match[3]) % room_col,
+                stoi(match[4]) % room_row
+            });
         }
     }
-    while(getline(file, line)) {
-        regex_search(line, zhoda, vzor);
-        const int p_col = stoi(zhoda[1]);
-        const int p_row = stoi(zhoda[2]);
-        const int v_col = stoi(zhoda[3]);
-        const int v_row = stoi(zhoda[4]);
-        int final_col = (p_col + v_col * time);
-        while(final_col < 0) {
-            final_col += (room_col * time);
+
+    long long seconds_elapsed = 1;
+    int safety_factor = numeric_limits<int>::max();
+    int iterations_without_improvement = 0;
+    const int max_iterations_without_improvement = 10000;  
+
+    while (true) {
+        array<int, 4> count = {0, 0, 0, 0};
+
+        
+        for (auto& robot : robots) {
+            robot.p_col = (robot.p_col + robot.v_col + room_col) % room_col;
+            robot.p_row = (robot.p_row + robot.v_row + room_row) % room_row;
+
+            int quadrant = (robot.p_row >= room_row / 2) * 2 + (robot.p_col >= room_col / 2);
+            count[quadrant]++;
         }
-        final_col %= room_col;
-        int final_row = p_row + v_row * time;
-        while(final_row < 0) {
-            final_row += (room_row * time);
+        int new_safety_factor = accumulate(count.begin(), count.end(), 1, multiplies<int>());
+        if (new_safety_factor < safety_factor) {
+            safety_factor = new_safety_factor;
+            cout << "Time: " << seconds_elapsed << '\n';
+            iterations_without_improvement = 0;
+        } else {
+            iterations_without_improvement++;
         }
-        final_row %= room_row;
-        if (final_row < room_row / 2 && final_col < room_col / 2) count[0]++;
-        else if (final_row < room_row / 2 && final_col > room_col / 2) count[1]++;
-        else if (final_row > room_row / 2 && final_col < room_col / 2) count[2]++;
-        else if (final_row > room_row / 2 && final_col > room_col / 2) count[3]++;
-        room[final_row][final_col]++;
+
+      
+        if (iterations_without_improvement >= max_iterations_without_improvement) {
+            break;
+        }
+        seconds_elapsed++;
     }
 
-    int safety_factor = 1;
-    for (const auto prvok : count) {
-        safety_factor *= prvok;
-    }
-
-
-    cout << safety_factor<< '\n';
     return 0;
 }
