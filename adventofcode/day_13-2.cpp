@@ -36,7 +36,7 @@ int main() {
         const long long px = stoi(match[1]) + 10000000000000;
         const long long py = stoi(match[2]) + 10000000000000;
         const auto [possible, n1, n2] = check_linear_combination(ax, ay, bx, by, px, py);
-        // std::cout << (possible ? "yes" : "no") << ' ' << n1  << ' ' << n2 << ' ' << n1 * 3 + n2 * 1 << '\n';
+
         if (possible) total_cost += (n1 * 3 + n2);
         if(!getline(file, line)) break;
     }
