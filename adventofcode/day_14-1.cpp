@@ -1,3 +1,5 @@
+
+
 #include <bits/stdc++.h>
 using namespace std;
 int main() {
@@ -5,18 +7,18 @@ int main() {
 
     ifstream file(input);
     string line;
-    constexpr int time = 100;
-    constexpr int room_col = 101;
-    constexpr int room_row = 103;
+    const int time = 100;
+    const int room_col = 101;
+    const int room_row = 103;
 
     const regex vzor(R"(p=(-?[0-9]+),(-?[0-9]+) v=(-?[0-9]+),(-?[0-9]+))");
     smatch zhoda;
     int total_cost = 0;
-    array<int, 4> count = {{0,0,0,0}};  // pocet robotov
+    array<int, 4> count = {{0,0,0,0}};  // pocet robotov v kvadrnatoch
     array<array<int, room_col>, room_row> room;
     for (auto& row : room) {
-        for (auto& ele : row) {
-            ele = 0;
+        for (auto& prvok : row) {
+            prvok = 0;
         }
     }
     while(getline(file, line)) {
@@ -43,9 +45,8 @@ int main() {
     }
 
     int safety_factor = 1;
-    for (const auto ele : count) {
-        // cout << ele << ' ';
-        safety_factor *= ele;
+    for (const auto prvok : count) {
+        safety_factor *= prvok;
     }
 
 
