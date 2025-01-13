@@ -2,7 +2,7 @@
 using namespace std;
 
 tuple<bool, int, int> check_linear_combination(const int ax, const int ay, const int bx, const int by, const int cx, const int cy) {
-    if ((ax * by) == (bx * ay)) exit(0);;
+    if ((ax * by) == (bx * ay)) exit(0);
     const int A = (cx * by - cy * bx) / (ax * by - ay * bx);
     const int B = (cx * ay - cy * ax) / (bx * ay - by * ax);
 
