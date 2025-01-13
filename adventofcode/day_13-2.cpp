@@ -3,13 +3,13 @@ using namespace std;
 
 tuple<bool, long long, long long> check_linear_combination(const long long ax, const long long ay, const long long bx, const long long by, const long long cx, const long long cy) {
     if ((ax * by) == (bx * ay)) exit(0);
-    const long long n1 = (cx * by - cy * bx) / (ax * by - ay * bx);
-    const long long n2 = (cx * ay - cy * ax) / (bx * ay - by * ax);
+    const long long A = (cx * by - cy * bx) / (ax * by - ay * bx);
+    const long long B = (cx * ay - cy * ax) / (bx * ay - by * ax);
 
-    if (n1 * ax + n2 * bx != cx) return {false, -1, -1};
-    if (n1 * ay + n2 * by != cy) return {false, -1, -1};
-    if (n1 < 0 || n2 < 0) return {false, -1, -1};
-    return {true, n1, n2};
+    if (A * ax + B * bx != cx) return {false, -1, -1};
+    if (A * ay + B * by != cy) return {false, -1, -1};
+    if (A < 0 || B < 0) return {false, -1, -1};
+    return {true, A, B};
 }
 
 int main() {
@@ -35,9 +35,9 @@ int main() {
         regex_search(line, match, vzor);
         const long long px = stoi(match[1]) + 10000000000000;
         const long long py = stoi(match[2]) + 10000000000000;
-        const auto [possible, n1, n2] = check_linear_combination(ax, ay, bx, by, px, py);
-
-        if (possible) total_cost += (n1 * 3 + n2);
+        const auto [possible, A, B] = check_linear_combination(ax, ay, bx, by, px, py);
+        
+        if (possible) total_cost += (A * 3 + B);
         if(!getline(file, line)) break;
     }
     cout << total_cost << '\n';
