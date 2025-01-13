@@ -5,7 +5,7 @@ tuple<bool, long long, long long> check_linear_combination(const long long ax, c
     if ((ax * by) == (bx * ay)) exit(0);
     const long long n1 = (cx * by - cy * bx) / (ax * by - ay * bx);
     const long long n2 = (cx * ay - cy * ax) / (bx * ay - by * ax);
-    // Account for integer rounding
+
     if (n1 * ax + n2 * bx != cx) return {false, -1, -1};
     if (n1 * ay + n2 * by != cy) return {false, -1, -1};
     if (n1 < 0 || n2 < 0) return {false, -1, -1};
